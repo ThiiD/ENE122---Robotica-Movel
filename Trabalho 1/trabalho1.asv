@@ -1,0 +1,34 @@
+clc; clear all; close all
+
+% Posicao de leitura do sensor
+s = [20
+     0];
+ 
+% Posicao real do robo
+p = [20
+     0];
+ 
+% Ruidos de medicao
+eP = [0
+      0];
+
+% Tempo maximo
+tmax = 2 * pi;
+
+% Variação de tempo (passo)
+dt = pi/150;
+
+
+for t=0:dt:tmax
+    dP = [20*cos(t)
+          20*sin(t).*cos(t)];
+    eP = [eP , randn(2,1)];
+    p = [p , dP];
+    s = [s , dP+eP];
+    plot(p(1,:), p(2,:));
+    hold on
+%     plot(s(1,:), s(2,:));
+    grid on, axis equal
+    hold off
+    drawnow
+end
